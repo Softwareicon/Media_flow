@@ -1,0 +1,83 @@
+{
+  "expo": {
+    "name": "MediaFlow Pro",
+    "slug": "mediaflow-pro",
+    "version": "1.0.0",
+    "scheme": "mediaflow",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0B0D12"
+    },
+    "ios": {
+      "bundleIdentifier": "com.yourcompany.mediaflowpro",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "MediaFlow Pro saves the photos and videos you download to your library.",
+        "NSPhotoLibraryUsageDescription": "MediaFlow Pro needs access to save downloaded media to your library.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.yourcompany.mediaflowpro",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B0D12"
+      },
+      "permissions": [],
+      "blockedPermissions": [
+        "android.permission.READ_PHONE_STATE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_MEDIA_AUDIO"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": false,
+          "configureAndroidBackup": true
+        }
+      ],
+      "expo-sqlite",
+      "expo-video",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "MediaFlow Pro saves the photos and videos you download to your library.",
+          "savePhotosPermission": "MediaFlow Pro saves the photos and videos you download to your library.",
+          "isAccessMediaLocationEnabled": false,
+          "granularPermissions": [
+            "photo",
+            "video"
+          ]
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "backgroundColor": "#0B0D12",
+          "imageWidth": 160
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "apiUrl": "http://localhost:8000",
+      "eas": {
+        "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
+      },
+      "privacyUrl": "https://example.com/mediaflow/privacy",
+      "termsUrl": "https://example.com/mediaflow/terms"
+    }
+  }
+}
