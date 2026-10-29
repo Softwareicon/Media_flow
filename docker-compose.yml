@@ -1,0 +1,31 @@
+# Local development stack: Postgres + API. `docker compose up --build`
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: mediaflow
+      POSTGRES_PASSWORD: mediaflow
+      POSTGRES_DB: mediaflow
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mediaflow"]
+      interval: 5s
+      retries: 10
+  migrate:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://mediaflow:mediaflow@db:5432/mediaflow
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      db: {condition: service_healthy}
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://mediaflow:mediaflow@db:5432/mediaflow
+    ports: ["8000:8000"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+volumes:
+  pgdata:
